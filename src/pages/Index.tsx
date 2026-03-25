@@ -1,16 +1,25 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+import Services from "@/components/Services";
+import About from "@/components/About";
+import Contact from "@/components/Contact";
+import { LangProvider } from "@/lib/LangContext";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
+    <LangProvider>
+      <Header />
+      <main>
+        <Hero />
+        <Services />
+        <About />
+        <Contact />
+      </main>
+      <footer className="py-8 text-center text-muted-foreground text-sm border-t border-border">
+        © {new Date().getFullYear()} MaenSkill — Embedded Systems & Training
+      </footer>
+    </LangProvider>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
