@@ -56,6 +56,7 @@ export const translations = {
     message: { fr: "Message", en: "Message" },
     sending: { fr: "Envoi...", en: "Sending..." },
     sent: { fr: "Message envoyé !", en: "Message sent!" },
+    error: { fr: "Erreur lors de l'envoi. Réessayez.", en: "Failed to send. Please try again." },
   },
 } as const;
 

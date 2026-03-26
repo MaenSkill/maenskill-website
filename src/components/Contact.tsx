@@ -6,18 +6,54 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 
+const WEB3FORMS_KEY = "820ac797-7183-4bf2-b91a-636d19e66ffc";
+
 export default function Contact() {
   const { lang } = useLang();
   const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSending(true);
-    setTimeout(() => {
+
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    // Honeypot: if filled, silently pretend success
+    if (formData.get("botcheck")) {
       setSending(false);
       toast.success(t(translations.contact.sent, lang));
-      (e.target as HTMLFormElement).reset();
-    }, 1000);
+      form.reset();
+      return;
+    }
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: "Contact MaenSkill — " + formData.get("name"),
+          from_name: "MaenSkill Contact",
+          name: formData.get("name"),
+          email: formData.get("email"),
+          message: formData.get("message"),
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        toast.success(t(translations.contact.sent, lang));
+        form.reset();
+      } else {
+        toast.error(t(translations.contact.error, lang));
+      }
+    } catch {
+      toast.error(t(translations.contact.error, lang));
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -30,6 +66,15 @@ export default function Contact() {
           {t(translations.contact.text, lang)}
         </p>
         <form onSubmit={handleSubmit} className="space-y-4 text-left">
+          {/* Honeypot field — hidden from real users */}
+          <input
+            name="botcheck"
+            type="text"
+            autoComplete="off"
+            tabIndex={-1}
+            aria-hidden="true"
+            className="absolute opacity-0 h-0 w-0 pointer-events-none"
+          />
           <Input
             name="name"
             placeholder={t(translations.contact.name, lang)}
