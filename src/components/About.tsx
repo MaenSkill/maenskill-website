@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import { useLang } from "@/lib/LangContext";
 import { translations, t } from "@/lib/i18n";
+import { Button } from "@/components/ui/button";
 import logoNoText from "@/assets/logo-notext.png";
 
 export default function About() {
@@ -22,6 +24,9 @@ export default function About() {
         <p className="text-muted-foreground leading-relaxed text-lg">
           {t(translations.about.text, lang)}
         </p>
+        <Button asChild size="lg" variant="outline" className="mt-10 font-semibold">
+          <Link to="/qui-suis-je">{t(translations.about.cta, lang)}</Link>
+        </Button>
       </div>
     </section>
   );

@@ -1,6 +1,15 @@
 export type Lang = 'fr' | 'en';
 
 export const translations = {
+  meta: {
+    description: {
+      fr: "MaenSkill accompagne vos projets R&D critiques en systèmes embarqués : architecture, leadership technique, optimisation.",
+      en: "MaenSkill supports your critical embedded systems R&D projects: architecture, technical leadership, optimization.",
+    },
+  },
+  nav: {
+    whoami: { fr: "Qui suis-je ?", en: "About me" },
+  },
   hero: {
     title: {
       fr: "L'Expertise & Le Leadership pour Vos Systèmes Embarqués",
@@ -38,6 +47,7 @@ export const translations = {
     ],
   },
   about: {
+    cta: { fr: "Qui suis-je ?", en: "About me" },
     title: { fr: "Bâtir sur l'Expérience", en: "Building on Experience" },
     text: {
       fr: "Je suis un expert en systèmes embarqués et robotique mobile, avec un parcours marqué par le leadership technique et la résolution de situations complexes. MaenSkill est né de la conviction que la technologie a besoin d'une structure et d'une vision fortes pour réussir.",

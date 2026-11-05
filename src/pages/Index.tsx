@@ -1,26 +1,28 @@
-import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
-import CircuitPattern from "@/components/CircuitPattern";
-import { LangProvider } from "@/lib/LangContext";
+import SiteLayout from "@/components/SiteLayout";
+import { useDocumentMeta } from "@/hooks/use-document-meta";
+import { useLang } from "@/lib/LangContext";
+import { translations, t } from "@/lib/i18n";
 
 const Index = () => {
+  const { lang } = useLang();
+  useDocumentMeta(
+    "MaenSkill, Embedded Systems & Technical Leadership",
+    t(translations.meta.description, lang),
+  );
+
   return (
-    <LangProvider>
-      <CircuitPattern />
-      <Header />
-      <main className="relative z-10">
-        <Hero />
-        <Services />
-        <About />
+    <SiteLayout>
+      <Hero />
+      <Services />
+      <About />
+      <div id="contact" className="scroll-mt-24">
         <Contact />
-      </main>
-      <footer className="relative z-10 py-8 text-center text-muted-foreground text-sm border-t border-border">
-        © {new Date().getFullYear()} MaenSkill — Embedded Systems & Training
-      </footer>
-    </LangProvider>
+      </div>
+    </SiteLayout>
   );
 };
 
